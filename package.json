@@ -10,6 +10,17 @@
   "scripts": {
     "build": "webpack --mode production"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eriscrypt/gridlight.git"
+  },
+  "keywords": [
+    "css",
+    "css framework",
+    "scss",
+    "sass",
+    "framework"
+  ],
   "devDependencies": {
     "css-loader": "^6.7.1",
     "mini-css-extract-plugin": "^2.6.0",
