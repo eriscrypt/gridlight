@@ -1,0 +1,99 @@
+@import './_vars.scss';
+@import './_normalize.scss';
+@import './mixins';
+@import './align';
+@import './colors';
+@import './utils';
+
+/* Containers */
+.container {
+  margin: 0 auto;
+  max-width: $grid-xl;
+
+  &-fluid {
+    margin: 0;
+    max-width: 100%;
+  }
+}
+/* End */
+
+/* Rows & Cols */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .col {
+    display: flex;
+    flex: 1;
+
+    &-auto {
+      flex: unset;
+      flex-basis: unset;
+      display: flex;
+    }
+  }
+
+  @each $modifier, $breakpoint in $map-grid-props {
+    @include create-col-classes($modifier, $grid-cols, $breakpoint);
+  }
+}
+/* End */
+
+/* Create all gap classes for all media queries */
+.gap {
+  @include create-gap-classes('', 0);
+
+  @each $modifier, $breakpoint in $map-grid-props {
+    @include create-gap-classes($modifier, $breakpoint);
+  }
+}
+
+/*
+  $direction = ('top', 'bottom', 'left', 'right')
+  $directionKey = ('t', 'b', 'l', 'r')
+*/
+@each $modifier, $breakpoint in $map-grid-props {
+  @each $direction, $directionKey in $map-offset-props {
+    @include create-offset-classes(
+      $modifier,
+      '.p',
+      'padding',
+      $direction,
+      $directionKey,
+      $breakpoint
+    );
+    @include create-offset-classes(
+      $modifier,
+      '.m',
+      'margin',
+      $direction,
+      $directionKey,
+      $breakpoint
+    );
+  }
+}
+/* End */
+
+.border {
+  border: 1px solid;
+}
+
+.cursor {
+  &-pointer {
+    cursor: pointer;
+  }
+  &-default {
+    cursor: default;
+  }
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}
