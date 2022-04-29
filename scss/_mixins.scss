@@ -1,0 +1,113 @@
+/* Create Media Query */
+@mixin create-mq($breakpoint) {
+  @if ($breakpoint == 0) {
+    @content;
+  } @else {
+    @media screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+/* Create all displays classes for all media queries */
+@mixin create-display-classes($modifier, $breakpoint, $prefix) {
+  @include create-mq($breakpoint) {
+    &#{$modifier}-#{$prefix} {
+      display: $prefix !important;
+    }
+  }
+}
+
+/* Create all cols classes for all media queries */
+@mixin create-col-classes($modifier, $grid-cols, $breakpoint) {
+  @include create-mq($breakpoint) {
+    @for $i from 1 through $grid-cols {
+      .col#{$modifier}-#{$i} {
+        flex-basis: (100 / ($grid-cols / $i)) * 1%;
+      }
+    }
+  }
+}
+
+/* Offsets (gap) between columns */
+@mixin create-gap-classes($modifier, $breakpoint) {
+  @include create-mq($breakpoint) {
+    @for $i from 0 through 25 {
+      &#{$modifier}-#{$i} {
+        gap: $i * ($offset-step * 1px);
+      }
+    }
+  }
+}
+
+/* Offsets (marigin/padding) */
+@mixin create-offset-classes(
+  $prefix,
+  $modifier,
+  $modifierKey,
+  $direction,
+  $directionKey,
+  $breakpoint
+) {
+  @include create-mq($breakpoint) {
+    @for $i from 0 through 25 {
+      $value: $i * ($offset-step * 1px);
+
+      #{$modifier}#{$prefix}-#{$i} {
+        #{$modifierKey}: $value;
+      }
+
+      @if ($directionKey != 'x' and $directionKey != 'y') {
+        #{$modifier}#{$directionKey}#{$prefix}-#{$i} {
+          #{$modifierKey}-#{$direction}: $value;
+        }
+      }
+
+      @if ($direction == 'x') {
+        #{$modifier}#{$directionKey}#{$prefix}-#{$i} {
+          #{$modifierKey}-left: $value;
+          #{$modifierKey}-right: $value;
+        }
+      }
+
+      @if ($direction == 'y') {
+        #{$modifier}#{$directionKey}#{$prefix}-#{$i} {
+          #{$modifierKey}-top: $value;
+          #{$modifierKey}-bottom: $value;
+        }
+      }
+    }
+  }
+}
+
+@mixin create-color($modifier, $breakpoint, $property) {
+  @include create-mq($breakpoint) {
+    @each $name, $value in $map-colors {
+      &#{$modifier}-#{$name} {
+        #{$property}: $value;
+      }
+
+      &-hover#{$modifier}-#{$name} {
+        &:hover {
+          #{$property}: $value;
+        }
+      }
+    }
+  }
+}
+
+@mixin create-z-index() {
+  @for $i from 0 through 1000 {
+    &-#{$i} {
+      z-index: $i;
+    }
+  }
+}
+
+@mixin create-round() {
+  @for $i from 0 through 100 {
+    &-#{$i} {
+      border-radius: $i * 1px;
+    }
+  }
+}

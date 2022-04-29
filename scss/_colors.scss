@@ -1,0 +1,11 @@
+.bg {
+  @each $modifier, $breakpoint in $map-grid-props {
+    @include create-color($modifier, $breakpoint, 'background-color');
+  }
+}
+
+.fr {
+  @each $modifier, $breakpoint in $map-grid-props {
+    @include create-color($modifier, $breakpoint, 'color');
+  }
+}

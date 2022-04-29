@@ -1,0 +1,50 @@
+.d {
+  &-flex {
+    display: flex;
+  }
+  &-block {
+    display: block;
+  }
+  &-none {
+    display: none;
+  }
+
+  @each $modifier, $breakpoint in $map-grid-props {
+    @each $prefix, $prefixValue in $map-display-props {
+      @include create-display-classes($modifier, $breakpoint, $prefixValue);
+    }
+  }
+}
+
+.flex {
+  &-row {
+    flex-direction: row;
+  }
+  &-col {
+    flex-direction: column;
+  }
+}
+
+.z {
+  @include create-z-index();
+}
+
+.position {
+  &-absolute {
+    position: absolute;
+  }
+  &-fixed {
+    position: fixed;
+  }
+  &-relative {
+    position: relative;
+  }
+}
+
+.round {
+  @include create-round();
+}
+
+.circle {
+  border-radius: 50%;
+}
