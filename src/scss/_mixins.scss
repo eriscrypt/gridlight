@@ -33,7 +33,7 @@
 /* Offsets (gap) between columns */
 @mixin create-gap-classes($modifier, $breakpoint) {
   @include create-mq($breakpoint) {
-    @for $i from 0 through 25 {
+    @for $i from 0 through 10 {
       &#{$modifier}-#{$i} {
         gap: $i * ($offset-step * 1px);
       }
@@ -51,7 +51,7 @@
   $breakpoint
 ) {
   @include create-mq($breakpoint) {
-    @for $i from 0 through 25 {
+    @for $i from 0 through 10 {
       $value: $i * ($offset-step * 1px);
 
       #{$modifier}#{$prefix}-#{$i} {
@@ -98,7 +98,7 @@
 }
 
 @mixin create-z-index() {
-  @for $i from 0 through 1000 {
+  @for $i from 0 through 10 {
     &-#{$i} {
       z-index: $i;
     }
@@ -106,9 +106,9 @@
 }
 
 @mixin create-round() {
-  @for $i from 0 through 100 {
+  @for $i from 0 through 10 {
     &-#{$i} {
-      border-radius: $i * 1px;
+      border-radius: $i * 2px;
     }
   }
 }
