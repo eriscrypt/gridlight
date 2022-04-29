@@ -2,6 +2,11 @@
   "name": "gridlight",
   "version": "1.0.0",
   "license": "MIT",
+  "author": {
+    "email": "eriscrypt@gmail.com",
+    "name": "Isaev Ernest",
+    "url": "https://eriscrypt.com/"
+  },
   "scripts": {
     "build": "webpack --mode production"
   },
