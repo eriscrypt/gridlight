@@ -9,7 +9,7 @@ Then, just import  `./gridlight/dist/style.min.css`
 
 Or, use cdn
 
-`https://cdn.jsdelivr.net/npm/gridlight@1.0.2/dist/style.min.css`
+`https://cdn.jsdelivr.net/npm/gridlight@1.1.0/dist/style.min.css`
 
 ## Usage
 
