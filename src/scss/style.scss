@@ -1,8 +1,6 @@
 @import './_vars.scss';
 @import './_normalize.scss';
 @import './mixins';
-@import './align';
-@import './colors';
 @import './utils';
 
 /* Containers */
@@ -13,6 +11,11 @@
   &-fluid {
     margin: 0;
     max-width: 100%;
+  }
+
+  &-wide {
+    margin: 0 auto;
+    max-width: $max-container-width;
   }
 }
 /* End */
@@ -25,7 +28,7 @@
 
   .col {
     display: flex;
-    flex: 1;
+    flex-grow: 1;
 
     &-auto {
       flex: unset;
@@ -33,19 +36,36 @@
       display: flex;
     }
   }
-
-  @each $modifier, $breakpoint in $map-grid-props {
-    @include create-col-classes($modifier, $grid-cols, $breakpoint);
-  }
 }
 /* End */
 
-/* Create all gap classes for all media queries */
-.gap {
-  @include create-gap-classes('', 0);
+.align {
+  &-center {
+    align-items: center;
+  }
+  &-start {
+    align-items: flex-start;
+  }
+  &-end {
+    align-items: flex-end;
+  }
+}
 
-  @each $modifier, $breakpoint in $map-grid-props {
-    @include create-gap-classes($modifier, $breakpoint);
+.justify {
+  &-center {
+    justify-content: center;
+  }
+  &-start {
+    justify-content: flex-start;
+  }
+  &-end {
+    justify-content: flex-end;
+  }
+  &-between {
+    justify-content: space-between;
+  }
+  &-around {
+    justify-content: space-around;
   }
 }
 
@@ -53,31 +73,24 @@
   $direction = ('top', 'bottom', 'left', 'right')
   $directionKey = ('t', 'b', 'l', 'r')
 */
+@include create-color();
+
 @each $modifier, $breakpoint in $map-grid-props {
-  @each $direction, $directionKey in $map-offset-props {
-    @include create-offset-classes(
-      $modifier,
-      '.p',
-      'padding',
-      $direction,
-      $directionKey,
-      $breakpoint
-    );
-    @include create-offset-classes(
-      $modifier,
-      '.m',
-      'margin',
-      $direction,
-      $directionKey,
-      $breakpoint
-    );
+  @include create-mq($breakpoint) {
+    @include create-col-classes($modifier, $grid-cols);
+    @include create-gap-classes($modifier, $breakpoint);
+
+    @each $direction, $directionKey in $map-offset-props {
+      @include create-offset-classes($modifier, '.p', 'padding', $direction, $directionKey);
+      @include create-offset-classes($modifier, '.m', 'margin', $direction, $directionKey);
+    }
+
+    @each $prefix, $prefixValue in $map-display-props {
+      @include create-display-classes($modifier, $prefixValue);
+    }
   }
 }
 /* End */
-
-.border {
-  border: 1px solid;
-}
 
 .cursor {
   &-pointer {

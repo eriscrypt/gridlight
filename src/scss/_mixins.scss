@@ -3,95 +3,132 @@
   @if ($breakpoint == 0) {
     @content;
   } @else {
-    @media screen and (min-width: $breakpoint) {
-      @content;
+    @if ($breakpoint == 540px) {
+      @media screen and (max-width: $breakpoint) {
+        @content;
+      }
+    } @else {
+      @media screen and (min-width: $breakpoint) {
+        @content;
+      }
     }
   }
 }
 
 /* Create all displays classes for all media queries */
-@mixin create-display-classes($modifier, $breakpoint, $prefix) {
-  @include create-mq($breakpoint) {
-    &#{$modifier}-#{$prefix} {
-      display: $prefix !important;
-    }
+@mixin create-display-classes($modifier, $prefix) {
+  .d#{$modifier}-#{$prefix} {
+    display: $prefix !important;
   }
 }
 
 /* Create all cols classes for all media queries */
-@mixin create-col-classes($modifier, $grid-cols, $breakpoint) {
-  @include create-mq($breakpoint) {
-    @for $i from 1 through $grid-cols {
-      .col#{$modifier}-#{$i} {
-        @debug 1;
-        flex-basis: calc(100 / (calc($grid-cols / $i))) * 1%;
-      }
+@mixin create-col-classes($modifier, $grid-cols) {
+  @for $i from 1 through $grid-cols {
+    .col#{$modifier}-#{$i} {
+      // flex-basis: calc(100 / (calc($grid-cols / $i))) * 1%;
+      flex-basis: calc(calc(100 - $offset-step) / (($grid-cols / $i))) * 1%;
+      // flex-grow: unset !important;
+      flex-grow: 1;
     }
   }
 }
 
 /* Offsets (gap) between columns */
 @mixin create-gap-classes($modifier, $breakpoint) {
-  @include create-mq($breakpoint) {
-    @for $i from 0 through 10 {
-      &#{$modifier}-#{$i} {
-        gap: $i * ($offset-step * 1px);
-      }
+  @for $i from 0 through 10 {
+    .gap#{$modifier}-#{$i} {
+      gap: $i * ($offset-step * 1px);
     }
   }
 }
 
 /* Offsets (marigin/padding) */
-@mixin create-offset-classes(
-  $prefix,
-  $modifier,
-  $modifierKey,
-  $direction,
-  $directionKey,
-  $breakpoint
-) {
-  @include create-mq($breakpoint) {
-    @for $i from 0 through 10 {
-      $value: $i * ($offset-step * 1px);
+@mixin create-offset-classes($prefix, $modifier, $modifierKey, $direction, $directionKey) {
+  @for $i from 0 through 5 {
+    $value: $i * ($offset-step * 1px);
 
-      #{$modifier}#{$prefix}-#{$i} {
-        #{$modifierKey}: $value;
+    #{$modifier}#{$prefix}-#{$i} {
+      #{$modifierKey}: $value;
+    }
+
+    @if ($directionKey != 'x' and $directionKey != 'y') {
+      #{$modifier}#{$directionKey}#{$prefix}-#{$i} {
+        #{$modifierKey}-#{$direction}: $value;
       }
+    }
 
-      @if ($directionKey != 'x' and $directionKey != 'y') {
-        #{$modifier}#{$directionKey}#{$prefix}-#{$i} {
-          #{$modifierKey}-#{$direction}: $value;
-        }
+    @if ($direction == 'x') {
+      #{$modifier}#{$directionKey}#{$prefix}-#{$i} {
+        #{$modifierKey}-left: $value;
+        #{$modifierKey}-right: $value;
       }
+    }
 
-      @if ($direction == 'x') {
-        #{$modifier}#{$directionKey}#{$prefix}-#{$i} {
-          #{$modifierKey}-left: $value;
-          #{$modifierKey}-right: $value;
-        }
-      }
-
-      @if ($direction == 'y') {
-        #{$modifier}#{$directionKey}#{$prefix}-#{$i} {
-          #{$modifierKey}-top: $value;
-          #{$modifierKey}-bottom: $value;
-        }
+    @if ($direction == 'y') {
+      #{$modifier}#{$directionKey}#{$prefix}-#{$i} {
+        #{$modifierKey}-top: $value;
+        #{$modifierKey}-bottom: $value;
       }
     }
   }
 }
 
-@mixin create-color($modifier, $breakpoint, $property) {
-  @include create-mq($breakpoint) {
-    @each $name, $value in $map-colors {
-      &#{$modifier}-#{$name} {
-        #{$property}: $value;
+@mixin create-color() {
+  @each $name, $value in $map-colors {
+    .bg-#{$name} {
+      background-color: $value;
+    }
+
+    .fr-#{$name} {
+      color: $value;
+    }
+
+    .bg-hover-#{$name} {
+      &:hover {
+        background-color: $value;
+      }
+    }
+
+    .fr-hover-#{$name} {
+      &:hover {
+        color: $value;
+      }
+    }
+
+    .border {
+      border: 1px solid #{$value};
+
+      &-bottom-#{$name} {
+        border-bottom: 1px solid #{$value};
       }
 
-      &-hover#{$modifier}-#{$name} {
-        &:hover {
-          #{$property}: $value;
-        }
+      &-left-#{$name} {
+        border-left: 1px solid #{$value};
+      }
+
+      &-right-#{$name} {
+        border-right: 1px solid #{$value};
+      }
+
+      &-top-#{$name} {
+        border-top: 1px solid #{$value};
+      }
+
+      &-bottom {
+        border-bottom: 1px solid;
+      }
+
+      &-left {
+        border-left: 1px solid;
+      }
+
+      &-right {
+        border-right: 1px solid;
+      }
+
+      &-top {
+        border-top: 1px solid;
       }
     }
   }

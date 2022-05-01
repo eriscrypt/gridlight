@@ -2,11 +2,12 @@
 $offset-step: 5;
 
 // Containers
-$grid-sm: 0;
-$grid-md: 540px;
+$grid-sm: 540px;
+$grid-md: 768px;
 $grid-lg: 960px;
 $grid-xl: 1140px;
 $grid-xxl: 1440px;
+$max-container-width: 1800px;
 
 $grid-cols: 12;
 

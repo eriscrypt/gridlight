@@ -8,12 +8,6 @@
   &-none {
     display: none;
   }
-
-  @each $modifier, $breakpoint in $map-grid-props {
-    @each $prefix, $prefixValue in $map-display-props {
-      @include create-display-classes($modifier, $breakpoint, $prefixValue);
-    }
-  }
 }
 
 .flex {
@@ -41,10 +35,70 @@
   }
 }
 
-.round {
+.overflow {
+  &-auto {
+    overflow: auto;
+  }
+
+  &-hidden {
+    overflow: hidden;
+  }
+
+  &-scroll {
+    overflow: scroll;
+  }
+
+  &-x {
+    &-auto {
+      overflow: auto;
+    }
+
+    &-hidden {
+      overflow: hidden;
+    }
+
+    &-scroll {
+      overflow: scroll;
+    }
+  }
+
+  &-y {
+    &-auto {
+      overflow: auto;
+    }
+
+    &-hidden {
+      overflow: hidden;
+    }
+
+    &-scroll {
+      overflow: scroll;
+    }
+  }
+}
+
+.rounded {
   @include create-round();
 }
 
 .circle {
   border-radius: 50%;
+}
+
+.w {
+  &-100 {
+    width: 100%;
+  }
+  &-50 {
+    width: 100%;
+  }
+}
+
+.h {
+  &-100 {
+    height: 100%;
+  }
+  &-50 {
+    height: 100%;
+  }
 }
