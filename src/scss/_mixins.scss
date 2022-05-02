@@ -28,7 +28,7 @@
     .col#{$modifier}-#{$i} {
       // $value: ((100) / (($grid-cols / $i))) * 1%;
 
-      flex-basis: calc(calc(100 - $offset-step) / (($grid-cols / $i))) * 1%;
+      flex-basis: calc((100) / (($grid-cols / $i))) * 1%;
       // flex-basis: $value;
       // flex-grow: 1;
     }
