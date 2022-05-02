@@ -26,10 +26,11 @@
 @mixin create-col-classes($modifier, $grid-cols) {
   @for $i from 1 through $grid-cols {
     .col#{$modifier}-#{$i} {
-      // flex-basis: calc(100 / (calc($grid-cols / $i))) * 1%;
+      // $value: ((100) / (($grid-cols / $i))) * 1%;
+
       flex-basis: calc(calc(100 - $offset-step) / (($grid-cols / $i))) * 1%;
-      // flex-grow: unset !important;
-      flex-grow: 1;
+      // flex-basis: $value;
+      // flex-grow: 1;
     }
   }
 }
@@ -97,7 +98,11 @@
     }
 
     .border {
-      border: 1px solid #{$value};
+      border: 1px solid;
+
+      &-#{$name} {
+        border: 1px solid #{$value};
+      }
 
       &-bottom-#{$name} {
         border-bottom: 1px solid #{$value};

@@ -167,3 +167,21 @@ for flex containers
 ```
 .cursor-#{value}
 ```
+
+### Opacity
+#### Values [1-10]
+```
+.opacity-#{value}
+```
+
+### Point Events
+#### Values [all, none]
+```
+.pe-#{value}
+```
+
+### User Select
+#### Values [all, none]
+```
+.us-#{value}
+```

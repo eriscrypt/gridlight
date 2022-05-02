@@ -102,3 +102,29 @@
     height: 100%;
   }
 }
+
+.opacity {
+  @for $i from 0 through 10 {
+    &-#{$i} {
+      opacity: $i / 10;
+    }
+  }
+}
+
+.pe {
+  &-none {
+    pointer-events: none;
+  }
+  &-all {
+    pointer-events: all;
+  }
+}
+
+.us {
+  &-none {
+    user-select: none;
+  }
+  &-all {
+    user-select: all;
+  }
+}
